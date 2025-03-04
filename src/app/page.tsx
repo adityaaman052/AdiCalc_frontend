@@ -15,11 +15,6 @@ const SWATCHES = [
   "#fab005", "#fd7e14"
 ];
 
-interface GeneratedResult {
-  expression: string;
-  answer: string;
-}
-
 export default function CanvasPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -95,10 +90,13 @@ export default function CanvasPage() {
     const canvas = canvasRef.current;
     if (canvas) {
       try {
-        const response = await axios.post(`${API_URL}/calculate`, {
-          image: canvas.toDataURL("image/png"),
-          dict_of_vars: dictOfVars,
-        });
+        const response = await axios.post<{ data: { expr: string; result: string }[] }>(
+          `${API_URL}/calculate`,
+          {
+            image: canvas.toDataURL("image/png"),
+            dict_of_vars: dictOfVars,
+          }
+        );
 
         const resp = response.data;
         console.log("Response:", resp);
