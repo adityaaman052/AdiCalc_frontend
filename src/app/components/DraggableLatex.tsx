@@ -10,7 +10,7 @@ interface DraggableLatexProps {
   latex: string;
 }
 
-const DraggableLatex: React.FC<DraggableLatexProps> = ({ index, latex }) => {
+const DraggableLatex: React.FC<DraggableLatexProps> = ({  latex }) => {
   const nodeRef = useRef<HTMLElement | null>(null); // Ensure it aligns with HTMLElement
 
   return (
